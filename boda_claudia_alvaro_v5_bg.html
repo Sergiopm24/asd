@@ -1,0 +1,379 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Press Start 2P',monospace;background:#1a0a2e;min-height:100vh}
+
+  .hero{background:#1a0a2e;position:relative;overflow:hidden;padding:0;min-height:200px}
+  .hero-bg{position:absolute;inset:0;overflow:hidden}
+  .hero-bg canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0.18}
+
+  .hero-top{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;padding:18px 20px 0;gap:10px}
+  .hero-names .names{font-size:11px;color:#b8d8b0;line-height:2;text-shadow:0 0 10px #b8d8b055}
+  .hero-names .fecha{font-size:8px;color:#e8c4e0;margin-top:6px;line-height:1.8}
+  .logo-box{width:80px;height:80px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+  .logo-box svg{width:76px;height:76px}
+
+  .hero-center{position:relative;z-index:2;text-align:center;padding:10px 20px 20px}
+  .adventure-title{display:inline-block;background:#6b2667;border:3px solid #b8d8b0;padding:14px 22px;margin-bottom:8px;animation:glow 2s infinite alternate}
+  @keyframes glow{from{box-shadow:0 0 8px #6b266755}to{box-shadow:0 0 20px #6b2667aa,0 0 40px #b8d8b033}}
+  .adventure-title p{font-size:11px;color:#fff;line-height:2.2;text-shadow:1px 1px #3a0040}
+  .adventure-sub{font-size:8px;color:#b8d8b0;line-height:2;margin-top:6px}
+
+  .px{width:8px;height:8px;display:inline-block}
+  .pR{background:#E03030}.pS{background:#F4C080}.pB{background:#703010}
+  .row{display:flex;justify-content:center}
+
+  .cta-bar{background:#6b2667;border-top:3px solid #b8d8b0;border-bottom:3px solid #b8d8b0;padding:16px 20px;text-align:center}
+  .cta-bar a{display:inline-block;background:#b8d8b0;border:3px solid #6b2667;color:#1a0a2e;font-family:'Press Start 2P',monospace;font-size:9px;padding:12px 20px;text-decoration:none;animation:pulse 1s infinite alternate}
+  @keyframes pulse{from{box-shadow:0 0 0 0 #b8d8b077}to{box-shadow:0 0 0 8px #b8d8b000}}
+  .cta-label{font-size:9px;color:#fff;margin-bottom:10px;line-height:2}
+
+  .already-bar{background:#2a0a3e;padding:14px 20px;text-align:center;border-bottom:2px solid #6b266755;position:relative;overflow:hidden}
+  .already-bar p{font-size:8px;color:#e8c4e0;line-height:2;position:relative;z-index:1}
+  .already-bar .hint{font-size:7px;color:#b8d8b0;margin-top:6px;line-height:2;position:relative;z-index:1}
+
+  .pixel-divider{display:flex;justify-content:center;align-items:center;gap:6px;padding:8px;background:#1a0a2e}
+  .pd{width:12px;height:12px;background:#6b2667;border:1px solid #b8d8b055;animation:bounce 0.7s infinite alternate}
+  .pd:nth-child(2){animation-delay:.1s;background:#4a1f60}.pd:nth-child(3){animation-delay:.2s}.pd:nth-child(4){animation-delay:.3s;background:#4a1f60}.pd:nth-child(5){animation-delay:.4s}
+  @keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-5px)}}
+
+  .sec{border-top:3px solid #6b2667;position:relative;overflow:hidden}
+  .sec-header{display:flex;align-items:center;gap:12px;padding:16px 18px;cursor:pointer;user-select:none;transition:background 0.15s;position:relative;z-index:1}
+  .sec-header:hover{background:#ffffff08}
+  .sec-icon{width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;border:2px solid}
+  .sec-title{font-size:10px;line-height:1.8;flex:1}
+  .sec-sub{font-size:7px;margin-top:4px;line-height:1.8}
+  .sec-arrow{font-size:10px;flex-shrink:0;transition:transform 0.2s;color:#b8d8b0}
+  .sec-arrow.open{transform:rotate(180deg)}
+
+  .sec-transport .sec-header{background:#0d1f3c}
+  .sec-transport .sec-icon{background:#1a3a6e;border-color:#4a90d9;color:#4a90d9}
+  .sec-transport .sec-title{color:#4a90d9}
+  .sec-transport .sec-sub{color:#7ab3e8}
+
+  .sec-food .sec-header{background:#2d0d1a}
+  .sec-food .sec-icon{background:#5c1a2e;border-color:#e74c7c;color:#e74c7c}
+  .sec-food .sec-title{color:#e74c7c}
+  .sec-food .sec-sub{color:#f0899b}
+
+  .sec-leisure .sec-header{background:#0d2d1a}
+  .sec-leisure .sec-icon{background:#1a5c2e;border-color:#4caf50;color:#4caf50}
+  .sec-leisure .sec-title{color:#4caf50}
+  .sec-leisure .sec-sub{color:#80c784}
+
+  .body-panel{display:none;padding:0 0 4px;position:relative;z-index:1}
+  .body-panel.open{display:block}
+
+  .col-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;padding:10px 14px 16px}
+  .card{background:#ffffff0d;border:2px solid #6b266766;padding:12px 10px;text-align:center;text-decoration:none;display:block;transition:transform 0.1s,background 0.1s}
+  .card:hover{transform:translateY(-2px);background:#ffffff1a}
+  .card-icon{font-size:22px;margin-bottom:8px}
+  .card-name{font-size:8px;color:#b8d8b0;line-height:1.8;margin-bottom:5px;font-family:'Press Start 2P',monospace}
+  .card-desc{font-size:7px;color:#ccc;line-height:1.8;font-family:'Press Start 2P',monospace}
+  .card-link{display:inline-block;margin-top:7px;font-size:7px;background:#6b2667;color:#b8d8b0;padding:4px 8px;text-decoration:none;font-family:'Press Start 2P',monospace;border:1px solid #b8d8b0}
+
+  .badge-taxi{border-color:#4a90d966;background:#1a3a6e22}
+  .badge-food{border-color:#e74c7c66;background:#5c1a2e22}
+  .badge-leisure{border-color:#4caf5066;background:#1a5c2e22}
+
+  .footer-bar{height:28px;background:repeating-linear-gradient(90deg,#6b2667 0,#6b2667 28px,#b8d8b0 28px,#b8d8b0 56px)}
+</style>
+
+<div class="hero">
+  <div class="hero-bg">
+    <canvas id="bgCanvas"></canvas>
+  </div>
+  <div class="hero-top">
+    <div class="hero-names">
+      <div class="names">&#9829; CLAUDIA<br>&amp; ALVARO &#9829;</div>
+      <div class="fecha">&#128197; [FECHA DE LA BODA]<br>&#128205; Jerez de la Frontera</div>
+    </div>
+    <div class="logo-box">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="32" y="8" width="36" height="40" rx="16" fill="#6b2667"/>
+        <rect x="32" y="8" width="6" height="6" fill="#b8d8b0"/><rect x="44" y="8" width="6" height="6" fill="#b8d8b0"/><rect x="56" y="8" width="6" height="6" fill="#b8d8b0"/>
+        <rect x="38" y="14" width="6" height="6" fill="#b8d8b0"/><rect x="50" y="14" width="6" height="6" fill="#b8d8b0"/><rect x="62" y="14" width="6" height="6" fill="#b8d8b0"/>
+        <rect x="32" y="20" width="36" height="24" rx="4" fill="#b8d8b0"/>
+        <rect x="38" y="24" width="24" height="16" rx="2" fill="#6b2667"/>
+        <rect x="46" y="46" width="8" height="14" fill="#6b2667"/>
+        <rect x="34" y="58" width="32" height="6" rx="3" fill="#6b2667"/>
+        <rect x="24" y="28" width="8" height="8" fill="#b8d8b0"/><rect x="68" y="28" width="8" height="8" fill="#b8d8b0"/>
+        <rect x="6" y="46" width="20" height="5" fill="#b8d8b0"/><rect x="6" y="70" width="20" height="5" fill="#b8d8b0"/><rect x="6" y="46" width="5" height="29" fill="#b8d8b0"/>
+        <rect x="74" y="46" width="5" height="29" fill="#b8d8b0"/><rect x="88" y="46" width="5" height="29" fill="#b8d8b0"/>
+        <rect x="74" y="46" width="19" height="5" fill="#b8d8b0"/><rect x="74" y="58" width="19" height="5" fill="#b8d8b0"/>
+      </svg>
+    </div>
+  </div>
+  <div class="hero-center">
+    <div class="adventure-title">
+      <p>&#9733; CONFIRMA AQUI<br>TU PARTICIPACION<br>EN LA AVENTURA &#9733;</p>
+    </div>
+    <div class="adventure-sub">Bienvenidos a Jerez &#8212; Guia para invitados</div>
+    <div style="display:flex;flex-direction:column;align-items:center;margin-top:14px;">
+      <div class="row"><span class="px pR"></span><span class="px pR"></span><span class="px pR"></span><span class="px" style="background:transparent;width:16px"></span><span class="px pR"></span><span class="px pR"></span><span class="px pR"></span></div>
+      <div class="row"><span class="px" style="background:transparent"></span><span class="px pB"></span><span class="px pS"></span><span class="px pB"></span><span class="px" style="background:transparent;width:16px"></span><span class="px pB"></span><span class="px pS"></span><span class="px pB"></span><span class="px" style="background:transparent"></span></div>
+      <div class="row"><span class="px pR"></span><span class="px pR"></span><span class="px pR"></span><span class="px" style="background:transparent;width:16px"></span><span class="px pR"></span><span class="px pR"></span><span class="px pR"></span></div>
+      <div class="row"><span class="px pR"></span><span class="px" style="background:transparent"></span><span class="px pR"></span><span class="px" style="background:transparent;width:16px"></span><span class="px pR"></span><span class="px" style="background:transparent"></span><span class="px pR"></span></div>
+      <div class="row"><span class="px pB"></span><span class="px pB"></span><span class="px" style="background:transparent;width:8px"></span><span class="px" style="background:transparent;width:16px"></span><span class="px" style="background:transparent;width:8px"></span><span class="px pB"></span><span class="px pB"></span></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-bar">
+  <div class="cta-label">&#9660; NO TE QUEDES FUERA &#9660;</div>
+  <a href="https://forms.google.com" target="_blank">&#9654; CONFIRMAR ASISTENCIA</a>
+</div>
+
+<div class="pixel-divider">
+  <div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div>
+</div>
+
+<div class="already-bar">
+  <p>&#10003; &#160; YA HAS CONFIRMADO?</p>
+  <div class="hint">&#128197; Ve preparando lo que necesites &#8212; &#9993; Prepara tu equipaje!</div>
+</div>
+
+<div class="pixel-divider">
+  <div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div>
+</div>
+
+<div class="sec sec-transport">
+  <div class="sec-header" onclick="toggle('transport')">
+    <div class="sec-icon">&#128661;</div>
+    <div style="flex:1"><div class="sec-title">TRANSPORTE</div><div class="sec-sub">Taxis y parkings en Jerez</div></div>
+    <div class="sec-arrow" id="arr-transport">&#9660;</div>
+  </div>
+  <div class="body-panel" id="panel-transport">
+    <div class="col-grid">
+      <a class="card badge-taxi" href="http://www.teletaxijerez.com/" target="_blank">
+        <div class="card-icon">&#128661;</div><div class="card-name">Radio Taxi Jerez</div><div class="card-desc">24h &#8212; Tel: 956 34 48 60</div>
+        <span class="card-link">Ver web &#9658;</span>
+      </a>
+      <div class="card badge-taxi"><div class="card-icon">&#128205;</div><div class="card-name">Parada Plaza del Arenal</div><div class="card-desc">Centro historico. Parada principal.</div></div>
+      <div class="card badge-taxi"><div class="card-icon">&#128205;</div><div class="card-name">Parada Estacion AVE</div><div class="card-desc">Junto a la estacion de tren.</div></div>
+      <div class="card badge-taxi"><div class="card-icon">&#128663;</div><div class="card-name">Parking El Arenal</div><div class="card-desc">Centro. Barato y cerca de todo.</div></div>
+      <div class="card badge-taxi"><div class="card-icon">&#128663;</div><div class="card-name">Parking Estacion</div><div class="card-desc">Junto al AVE. Economico.</div></div>
+      <a class="card badge-taxi" href="https://www.cabify.com" target="_blank">
+        <div class="card-icon">&#128241;</div><div class="card-name">Cabify / Uber</div><div class="card-desc">Apps disponibles en Jerez.</div>
+        <span class="card-link">Descargar &#9658;</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="sec sec-food">
+  <div class="sec-header" onclick="toggle('food')">
+    <div class="sec-icon">&#127859;</div>
+    <div style="flex:1"><div class="sec-title">ALIMENTACION</div><div class="sec-sub">Bares, tapas y restaurantes</div></div>
+    <div class="sec-arrow" id="arr-food">&#9660;</div>
+  </div>
+  <div class="body-panel" id="panel-food">
+    <div class="col-grid">
+      <a class="card badge-food" href="http://ventaelalbero.com" target="_blank">
+        <div class="card-icon">&#127859;</div><div class="card-name">Venta El Albero</div><div class="card-desc">Cocina andaluza. 4.8&#11088;</div>
+        <span class="card-link">Ver web &#9658;</span>
+      </a>
+      <a class="card badge-food" href="https://tabancoelpasaje.com/reservas/" target="_blank">
+        <div class="card-icon">&#127861;</div><div class="card-name">Tabanco El Pasaje</div><div class="card-desc">Flamenco y vinos. 4.5&#11088;</div>
+        <span class="card-link">Reservar &#9658;</span>
+      </a>
+      <div class="card badge-food"><div class="card-icon">&#127830;</div><div class="card-name">Las Banderillas</div><div class="card-desc">Tapas en San Miguel. Clasico.</div></div>
+      <div class="card badge-food"><div class="card-icon">&#129367;</div><div class="card-name">Atuvera</div><div class="card-desc">Raciones en el casco historico.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec sec-leisure">
+  <div class="sec-header" onclick="toggle('leisure')">
+    <div class="sec-icon">&#127963;</div>
+    <div style="flex:1"><div class="sec-title">TIEMPO LIBRE</div><div class="sec-sub">Lo mejor de Jerez</div></div>
+    <div class="sec-arrow" id="arr-leisure">&#9660;</div>
+  </div>
+  <div class="body-panel" id="panel-leisure">
+    <div class="col-grid">
+      <a class="card badge-leisure" href="https://www.tiopepe.com/" target="_blank">
+        <div class="card-icon">&#127863;</div><div class="card-name">Bodegas Tio Pepe</div><div class="card-desc">La bodega mas emblematica.</div>
+        <span class="card-link">Reservar &#9658;</span>
+      </a>
+      <a class="card badge-leisure" href="https://www.realescuela.org/" target="_blank">
+        <div class="card-icon">&#128014;</div><div class="card-name">Real Escuela Ecuestre</div><div class="card-desc">Espectaculo unico. 4.5&#11088;</div>
+        <span class="card-link">Ver &#9658;</span>
+      </a>
+      <a class="card badge-leisure" href="https://www.jerez.es/webs-municipales/conjunto-monumental-del-alcazar" target="_blank">
+        <div class="card-icon">&#127984;</div><div class="card-name">Alcazar de Jerez</div><div class="card-desc">Fortaleza arabe. Solo 5&#8364;.</div>
+        <span class="card-link">Info &#9658;</span>
+      </a>
+      <a class="card badge-leisure" href="http://www.catedraldejerez.es/" target="_blank">
+        <div class="card-icon">&#9962;</div><div class="card-name">Catedral de Jerez</div><div class="card-desc">Joya barroca. Entrada libre.</div>
+        <span class="card-link">Info &#9658;</span>
+      </a>
+      <div class="card badge-leisure"><div class="card-icon">&#128483;</div><div class="card-name">Barrio San Miguel</div><div class="card-desc">Flamenco, tabancos y patios.</div></div>
+      <div class="card badge-leisure"><div class="card-icon">&#9728;</div><div class="card-name">Plaza del Arenal</div><div class="card-desc">Terrazas y ambiente en el centro.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-bar"></div>
+
+<script>
+function toggle(id){
+  var panel=document.getElementById('panel-'+id);
+  var arr=document.getElementById('arr-'+id);
+  if(panel.classList.contains('open')){panel.classList.remove('open');arr.classList.remove('open')}
+  else{panel.classList.add('open');arr.classList.add('open')}
+}
+
+var c=document.getElementById('bgCanvas');
+var ctx=c.getContext('2d');
+var W,H;
+
+var icons=[
+  function(x,y,s,col){
+    ctx.fillStyle=col;
+    var p=s*2;
+    var ring=[
+      [0,2],[1,2],[2,1],[3,0],[4,0],[5,0],[6,1],[7,2],[8,2],
+      [0,3],[8,3],
+      [0,4],[8,4],
+      [1,5],[7,5],
+      [2,6],[3,6],[4,6],[5,6],[6,6]
+    ];
+    ring.forEach(function(r){ctx.fillRect(x+r[0]*p,y+r[1]*p,p,p)});
+    ctx.fillRect(x+3*p,y+3*p,3*p,p);
+  },
+  function(x,y,s,col){
+    ctx.fillStyle=col;
+    var p=s*2;
+    var heart=[
+      [1,0],[2,0],[4,0],[5,0],
+      [0,1],[1,1],[2,1],[3,1],[4,1],[5,1],[6,1],
+      [0,2],[1,2],[2,2],[3,2],[4,2],[5,2],[6,2],
+      [1,3],[2,3],[3,3],[4,3],[5,3],
+      [2,4],[3,4],[4,4],
+      [3,5]
+    ];
+    heart.forEach(function(r){ctx.fillRect(x+r[0]*p,y+r[1]*p,p,p)});
+  },
+  function(x,y,s,col){
+    ctx.fillStyle=col;
+    var p=s*2;
+    var dove=[
+      [2,0],[3,0],[4,0],
+      [1,1],[2,1],[3,1],[5,1],[6,1],
+      [0,2],[1,2],[2,2],[3,2],[4,2],[5,2],
+      [1,3],[2,3],[3,3],[4,3],
+      [2,4],[3,4],
+      [1,5],[3,5]
+    ];
+    dove.forEach(function(r){ctx.fillRect(x+r[0]*p,y+r[1]*p,p,p)});
+  },
+  function(x,y,s,col){
+    ctx.fillStyle=col;
+    var p=s*2;
+    var cake=[
+      [2,0],[3,0],[4,0],
+      [3,1],
+      [1,2],[2,2],[3,2],[4,2],[5,2],
+      [0,3],[1,3],[2,3],[3,3],[4,3],[5,3],[6,3],
+      [0,4],[1,4],[2,4],[3,4],[4,4],[5,4],[6,4],
+      [0,5],[6,5],
+      [0,6],[1,6],[2,6],[3,6],[4,6],[5,6],[6,6]
+    ];
+    cake.forEach(function(r){ctx.fillRect(x+r[0]*p,y+r[1]*p,p,p)});
+  },
+  function(x,y,s,col){
+    ctx.fillStyle=col;
+    var p=s*2;
+    var glass=[
+      [1,0],[2,0],[3,0],[4,0],[5,0],
+      [1,1],[2,1],[3,1],[4,1],[5,1],
+      [2,2],[3,2],[4,2],
+      [3,3],
+      [3,4],
+      [2,5],[3,5],[4,5]
+    ];
+    glass.forEach(function(r){ctx.fillRect(x+r[0]*p,y+r[1]*p,p,p)});
+  },
+  function(x,y,s,col){
+    ctx.fillStyle=col;
+    var p=s*2;
+    var bouquet=[
+      [2,0],[3,0],[4,0],
+      [1,1],[2,1],[3,1],[4,1],[5,1],
+      [0,2],[1,2],[2,2],[3,2],[4,2],[5,2],[6,2],
+      [1,3],[2,3],[3,3],[4,3],[5,3],
+      [2,4],[3,4],[4,4],
+      [3,5],[3,6],[2,6],[4,6],
+      [2,7],[3,7],[4,7]
+    ];
+    bouquet.forEach(function(r){ctx.fillRect(x+r[0]*p,y+r[1]*p,p,p)});
+  },
+  function(x,y,s,col){
+    ctx.fillStyle=col;
+    var p=s*2;
+    var star=[
+      [3,0],
+      [2,1],[3,1],[4,1],
+      [0,2],[1,2],[2,2],[3,2],[4,2],[5,2],[6,2],
+      [1,3],[2,3],[3,3],[4,3],[5,3],
+      [2,4],[4,4],
+      [1,5],[5,5]
+    ];
+    star.forEach(function(r){ctx.fillRect(x+r[0]*p,y+r[1]*p,p,p)});
+  },
+  function(x,y,s,col){
+    ctx.fillStyle=col;
+    var p=s*2;
+    var note=[
+      [2,0],[3,0],[4,0],[5,0],[6,0],
+      [2,1],[6,1],
+      [2,2],[5,2],[6,2],
+      [2,3],[5,3],
+      [1,4],[2,4],[5,4],[6,4],
+      [0,5],[1,5],[2,5],[5,5],[6,5],
+      [0,6],[1,6],[5,6],[6,6]
+    ];
+    note.forEach(function(r){ctx.fillRect(x+r[0]*p,y+r[1]*p,p,p)});
+  }
+];
+
+var placed=[];
+function noOverlap(x,y,size){
+  for(var i=0;i<placed.length;i++){
+    var p=placed[i];
+    if(Math.abs(x-p.x)<size*16&&Math.abs(y-p.y)<size*16)return false;
+  }
+  return true;
+}
+
+function drawBg(){
+  W=c.parentElement.offsetWidth;
+  H=c.parentElement.offsetHeight||300;
+  c.width=W;c.height=H;
+  ctx.clearRect(0,0,W,H);
+  placed=[];
+  var cols=['#6b2667','#b8d8b0','#e8c4e0','#4a1f60','#d4a0c8'];
+  var attempts=0;
+  var count=0;
+  var target=Math.floor((W*H)/8000);
+  while(count<target&&attempts<target*10){
+    attempts++;
+    var s=1+Math.floor(Math.random()*2);
+    var x=Math.random()*(W-s*16);
+    var y=Math.random()*(H-s*16);
+    if(noOverlap(x,y,s)){
+      placed.push({x:x,y:y,s:s});
+      var fn=icons[Math.floor(Math.random()*icons.length)];
+      var col=cols[Math.floor(Math.random()*cols.length)];
+      fn(x,y,s,col);
+      count++;
+    }
+  }
+}
+
+window.addEventListener('load',function(){
+  setTimeout(drawBg,100);
+});
+window.addEventListener('resize',drawBg);
+</script>
